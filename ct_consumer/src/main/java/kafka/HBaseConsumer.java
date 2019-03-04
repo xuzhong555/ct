@@ -1,6 +1,7 @@
 package kafka;
 
 
+import hbase.HBaseDao;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -19,10 +20,14 @@ public class HBaseConsumer {
         KafkaConsumer<String,String> kafkaConsumer = new KafkaConsumer<String,String>(PropertiesUtil.properties);
         //得到当前消费主题
         kafkaConsumer.subscribe(Arrays.asList(PropertiesUtil.getProperty("kafka.topic")));
+
+        HBaseDao hbaseDao = new HBaseDao();
         while (true) {
             ConsumerRecords<String, String> records = kafkaConsumer.poll(100);
-            for (ConsumerRecord record : records) {
-                System.out.println(record.value());
+            for (ConsumerRecord<String, String> record : records) {
+                String value = record.value();
+                System.out.println(value);
+                hbaseDao.put(value);
             }
         }
     }
