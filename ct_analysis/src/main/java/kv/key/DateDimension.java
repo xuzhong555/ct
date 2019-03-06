@@ -6,8 +6,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class DateDimension extends BaseDimension{
-    private String id;
+public class DateDimension extends BaseDimension {
     private String year;
     private String month;
     private String day;
@@ -23,13 +22,6 @@ public class DateDimension extends BaseDimension{
         this.day = day;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getYear() {
         return year;
@@ -75,6 +67,7 @@ public class DateDimension extends BaseDimension{
         return result;
     }
 
+    @Override
     public int compareTo(BaseDimension o) {
         DateDimension anotherDateDimension = (DateDimension)o;
         int result = this.year.compareTo(anotherDateDimension.year);
@@ -88,12 +81,14 @@ public class DateDimension extends BaseDimension{
         return result;
     }
 
+    @Override
     public void write(DataOutput out) throws IOException {
         out.writeUTF(this.year);
         out.writeUTF(this.month);
         out.writeUTF(this.day);
     }
 
+    @Override
     public void readFields(DataInput in) throws IOException {
         this.year = in.readUTF();
         this.month = in.readUTF();

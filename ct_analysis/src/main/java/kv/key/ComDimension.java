@@ -6,7 +6,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class ComDimension extends BaseDimension{
+public class ComDimension extends BaseDimension {
     private ContactDimension contactDimension = new ContactDimension();
     private DateDimension dateDimension = new DateDimension();
 
@@ -30,6 +30,7 @@ public class ComDimension extends BaseDimension{
         this.dateDimension = dateDimension;
     }
 
+    @Override
     public int compareTo(BaseDimension o) {
         ComDimension anotherComDimension = (ComDimension) o;
 
@@ -40,11 +41,13 @@ public class ComDimension extends BaseDimension{
         return result;
     }
 
+    @Override
     public void write(DataOutput out) throws IOException {
         contactDimension.write(out);
         dateDimension.write(out);
     }
 
+    @Override
     public void readFields(DataInput in) throws IOException {
         contactDimension.readFields(in);
         dateDimension.readFields(in);

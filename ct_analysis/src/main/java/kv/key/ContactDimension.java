@@ -7,7 +7,6 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class ContactDimension extends BaseDimension{
-    private String id;
     private String telephone;
     private String name;
 
@@ -19,14 +18,6 @@ public class ContactDimension extends BaseDimension{
         super();
         this.telephone = telephone;
         this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getTelephone() {
@@ -64,6 +55,7 @@ public class ContactDimension extends BaseDimension{
         return result;
     }
 
+    @Override
     public int compareTo(BaseDimension o) {
         ContactDimension anotherContactDimension = (ContactDimension) o;
 
@@ -74,14 +66,14 @@ public class ContactDimension extends BaseDimension{
         return result;
     }
 
+    @Override
     public void write(DataOutput out) throws IOException {
-        out.writeUTF(this.id);
         out.writeUTF(this.telephone);
         out.writeUTF(this.name);
     }
 
+    @Override
     public void readFields(DataInput in) throws IOException {
-        this.id = in.readUTF();
         this.telephone = in.readUTF();
         this.name = in.readUTF();
     }
